@@ -36,7 +36,8 @@ def check_password(pw_line: str) -> bool:
 
 def check_password_v2(pw_line: str) -> bool:
     min_val, max_val, letter, password = parse_password_line(pw_line)
-
+    if min_val > len(password) or max_val > len(password):
+        return False
     return (password[min_val-1] == letter) ^ (password[max_val-1] == letter)
 
 '''
