@@ -14,7 +14,18 @@ def read_input(file_name: str) -> list:
         print(f'Error occurred: {e}')
 
 def check_trees(data: list) -> int:
-    pass
+    count = 0
+    i = 0
+    j = 0
+    while(i < len(data)):
+        if data[i][j] == '#':
+            count += 1
+        i += 1
+        j += 3
+        if (i >= len(data)): break
+        if (j >= len(data[i])):
+            j -= len(data[i])
+    return count
     
 data = read_input(os.path.join(os.path.dirname(__file__), 'input.txt'))
 print(check_trees(data))
