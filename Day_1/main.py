@@ -18,7 +18,7 @@ def read_input(file_name: str) -> list[int]:
 
 def report_repair(target: int) -> int:
     num_map = dict()
-    nums = read_input(os.path.join(os.path.dirname(__file__), 'input1.txt'))
+    nums = read_input(os.path.join(os.path.dirname(__file__), 'input.txt'))
     for n in nums:
         if n in num_map:
             num_map[n] += 1
@@ -33,7 +33,7 @@ def report_repair(target: int) -> int:
 
 def report_repair_v2(target: int) -> int:
     num_map = dict()
-    nums = read_input(os.path.join(os.path.dirname(__file__), 'input1.txt'))
+    nums = read_input(os.path.join(os.path.dirname(__file__), 'input.txt'))
     for n in nums:
         if n in num_map:
             num_map[n] += 1

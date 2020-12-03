@@ -54,7 +54,7 @@ def check_list_of_password(pw_list: list[str]) -> None:
     print(f'Version 1 Valid Passwords: {countv1}')
     print(f'Version 2 Valid Passwords: {countv2}')
 
-data = read_input(os.path.join(os.path.dirname(__file__), 'input1.txt'))
+data = read_input(os.path.join(os.path.dirname(__file__), 'input.txt'))
 check_list_of_password(data)
 # > 620
 # > 727
