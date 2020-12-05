@@ -22,7 +22,15 @@ def read_file(file_name: str) -> list:
         print(f'Error occurred: {e}')
         return []
 
+def validate_passports(list_of_passports: list) -> int:
+    required_fields = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
+    optional_fields = ['cid']
+    count = 0
+    for passport in list_of_passports:
+        if all(field in passport for field in required_fields):
+            count += 1
+    return count
+
 if __name__ == '__main__':
     data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
-    print(data[0])
-    print(data[1])
+    print(validate_passports(data))
