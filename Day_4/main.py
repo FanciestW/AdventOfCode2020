@@ -17,6 +17,8 @@ def read_file(file_name: str) -> list:
                 for data_field in line.strip().split(' '):
                     key, value = data_field.split(':')
                     temp_obj[key] = value
+        if len(temp_obj.keys()) > 0:
+            data.append(temp_obj)
         return data
     except Exception as e:
         print(f'Error occurred: {e}')
@@ -25,11 +27,12 @@ def read_file(file_name: str) -> list:
 def validate_passports(list_of_passports: list) -> int:
     required_fields = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
     optional_fields = ['cid']
-    count = 0
+    valid_count = 0
     for passport in list_of_passports:
-        if all(field in passport for field in required_fields):
-            count += 1
-    return count
+        if all(f in passport for f in required_fields):
+            valid_count += 1
+
+    return valid_count
 
 if __name__ == '__main__':
     data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
