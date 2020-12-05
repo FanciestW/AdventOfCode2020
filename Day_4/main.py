@@ -26,12 +26,20 @@ def read_file(file_name: str) -> list:
 
 def validate_passports(list_of_passports: list) -> int:
     required_fields = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
-    optional_fields = ['cid']
     valid_count = 0
     for passport in list_of_passports:
         if all(f in passport for f in required_fields):
             valid_count += 1
 
+    return valid_count
+
+def validate_passports(list_of_passports: list) -> int:
+    required_fields = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
+    valid_count = 0
+    for passport in list_of_passports:
+        if all(f in passport for f in required_fields):
+            valid_count += 1
+    
     return valid_count
 
 if __name__ == '__main__':
