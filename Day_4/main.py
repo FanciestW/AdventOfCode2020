@@ -37,3 +37,4 @@ def validate_passports(list_of_passports: list) -> int:
 if __name__ == '__main__':
     data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
     print(validate_passports(data))
+    # > 182
