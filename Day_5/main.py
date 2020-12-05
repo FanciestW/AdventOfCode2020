@@ -1,5 +1,6 @@
 import os
 import re
+import math
 
 def read_file(file_name: str) -> list[str]:
     try:
@@ -15,5 +16,25 @@ def read_file(file_name: str) -> list[str]:
     except Exception as e:
         print(str(e))
 
+def get_seat(pass_str: str, row_count=128, col_count=8) -> int:
+    rows = [i for i in range(row_count)]
+    cols = [i for i in range(col_count)]
+    for c in pass_str[:-3]:
+        if c == 'F':
+            rows = rows[:math.ceil(len(rows) / 2)]
+        elif c == 'B':
+            rows = rows[math.ceil(len(rows) / 2):]
+    
+    for c in pass_str[-3:]:
+        if c == 'L':
+            cols = cols[:math.ceil(len(cols) / 2)]
+        elif c == 'R':
+            cols = cols[math.ceil(len(cols) / 2):]
+    
+    return rows[0] * 8 + cols[0]
+
 if __name__ == '__main__':
     data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
+    print(get_seat('BFFFBBFRRR'))
+    print(get_seat('FFFBBBFRRR'))
+    print(get_seat('BBFFBBFRLL'))
