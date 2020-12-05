@@ -39,9 +39,9 @@ def check_passport_fields(passport: dict) -> bool:
             return False
         if eyr < 2020 or eyr > 2030:
             return False
-        if (hgt_unit == 'in' and (hgt < 59 or hgt > 76)) or (hgt_unit == 'cm' and (hgt < 150 or hgt > 193)):
+        if hgt_unit != 'in' and hgt_unit != 'cm':
             return False
-        elif hgt_unit != 'in' and hgt_unit != 'cm':
+        elif (hgt_unit == 'in' and (hgt <= 59 or hgt > 76)) or (hgt_unit == 'cm' and (hgt <= 150 or hgt > 193)):
             return False
         if not re.match('^[#]{1}[a-f0-9]{6}$', passport['hcl']):
             return False
@@ -77,4 +77,4 @@ if __name__ == '__main__':
     # > 182
 
     print(validate_passports_v2(data))
-    # > 110 Too High 
+    # > 109
