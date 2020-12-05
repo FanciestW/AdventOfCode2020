@@ -33,7 +33,16 @@ def get_seat(pass_str: str, row_count=128, col_count=8) -> int:
     
     return rows[0] * 8 + cols[0]
 
+def find_seat_id(seat_id_list: list[str]) -> int:
+    for i in range(min(seat_id_list), max(seat_id_list)):
+        if i not in seat_id_list:
+            return i
+    return -1
+
 if __name__ == '__main__':
     data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
     print(max([get_seat(d) for d in data]))
     # > 878
+
+    seat_ids = [get_seat(d) for d in data]
+    print(find_seat_id(seat_ids))
