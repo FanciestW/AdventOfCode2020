@@ -21,8 +21,9 @@ def read_file(file_name: str) -> list[str]:
         print(str(e))
 
 def sum_unique_questions(question_str: str) -> int:
-    pass
+    return len(list(set(question_str)))
 
 if __name__ == '__main__':
     data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
-    print(data[:10])
+    print(sum([sum_unique_questions(question_str) for question_str in data]))
+    # > 6683
