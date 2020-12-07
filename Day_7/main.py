@@ -43,7 +43,18 @@ def find_bags_count(bags_dict: dict, target_color: str) -> int:
                 found_bags.append(bag)
     return len(found_bags)
 
+def count_inner_bags(bags_dict: dict, target_color: str, root=True) -> int:
+    bag_count = 0 if root else 1
+    if target_color not in bags_dict:
+        return bag_count
+    for bag_color in bags_dict[target_color]:
+        bag_count += (bags_dict[target_color][bag_color] * count_inner_bags(bags_dict, bag_color, root=False))
+    return bag_count
+
 if __name__ == '__main__':
     data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
     print(find_bags_count(data, 'shiny gold'))
     # > 289
+
+    print(count_inner_bags(data, 'shiny gold'))
+    # > 30055
