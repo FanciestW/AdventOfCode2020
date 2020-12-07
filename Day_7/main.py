@@ -29,6 +29,21 @@ def read_file(file_name: str) -> dict:
         return data
     except Exception as e:
         print(str(e))
+    
+def find_bags_count(bags_dict: dict, target_color: str) -> int:
+    found_bags = list()
+    search_colors = [target_color]
+    while len(search_colors) > 0:
+        search = search_colors.pop()
+        for bag in bags_dict:
+            if bag in found_bags:
+                continue
+            elif any(c == search for c in list(bags_dict[bag].keys())):
+                search_colors.append(bag)
+                found_bags.append(bag)
+    return len(found_bags)
 
 if __name__ == '__main__':
     data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
+    print(find_bags_count(data, 'shiny gold'))
+    # > 289
