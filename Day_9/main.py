@@ -32,10 +32,30 @@ def find_invalid_num(data: List[int], pre_count=25) -> int:
             return num
     return None
 
+def find_consecutive_nums(data: List[int], target_num: int) -> List[int]:
+    for i, n in enumerate(data[:data.index(target_num):]):
+        if n >= target_num:
+            continue
+        j = i + 2
+        while j < len(data):
+            data_subset = data[i:j]
+            subset_sum = sum(data_subset)
+            if subset_sum < target_num:
+                j += 1
+            elif subset_sum == target_num:
+                return data_subset
+            else:
+                break
+
+    return None
 
 if __name__ == '__main__':
     data = read_data(os.path.join(os.path.dirname(__file__), 'input.txt'))
     invalid_num = find_invalid_num(data, pre_count=25)
     print(invalid_num)
     # > 2089807806
+
+    consecutive_list = find_consecutive_nums(data, invalid_num)
+    print(min(consecutive_list) + max(consecutive_list))
+    # > 245848639
 
