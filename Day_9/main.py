@@ -24,7 +24,7 @@ def hasPair(nums: List[int], target: int) -> bool:
             return True
     return False
 
-def check_rule(data: List[int], pre_count=25) -> int:
+def find_invalid_num(data: List[int], pre_count=25) -> int:
     for i in range(pre_count, len(data)):
         num = data[i]
         preamble_data = data[i-pre_count:i]
@@ -35,5 +35,7 @@ def check_rule(data: List[int], pre_count=25) -> int:
 
 if __name__ == '__main__':
     data = read_data(os.path.join(os.path.dirname(__file__), 'input.txt'))
-    print(check_rule(data, pre_count=25))
+    invalid_num = find_invalid_num(data, pre_count=25)
+    print(invalid_num)
     # > 2089807806
+
