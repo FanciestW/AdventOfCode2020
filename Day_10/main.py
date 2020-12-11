@@ -16,9 +16,7 @@ def read_file(file_name: str) -> List[int]:
         print(str(e))
 
 def count_jolt_diff(data: List[int]) -> int:
-    data.sort()
-    print(data) # TODO::Remove me
-    
+    data.sort()    
     j1_count = 0
     j3_count = 0
     last_adapter = 0 # Wall socket starts at 0 jolts
