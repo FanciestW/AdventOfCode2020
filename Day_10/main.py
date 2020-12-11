@@ -35,7 +35,6 @@ def count_jolt_diff(data: List[int]) -> int:
 def count_valid_arrangements(data: List[int], start_j=0) -> int:
     data = [0] + sorted(data) + [max(data) + 3]
     path_count_list = [1] + [0 for i in data[1:]]
-    print(data)
     for i in range(len(data)):
         if (data[i] + 1) in data[i:]:
             path_count_list[data.index(data[i] + 1)] += path_count_list[i]
@@ -43,12 +42,12 @@ def count_valid_arrangements(data: List[int], start_j=0) -> int:
             path_count_list[data.index(data[i] + 2)] += path_count_list[i]
         if (data[i] + 3) in data[i:]:
             path_count_list[data.index(data[i] + 3)] += path_count_list[i]
-    print(path_count_list)
     return path_count_list[-1]
 
 if __name__ == '__main__':
-    data = read_file(os.path.join(os.path.dirname(__file__), 'test_input.txt'))
+    data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
     print(count_jolt_diff(data))
     # > 1890
 
     print(count_valid_arrangements(data))
+    # > 49607173328384
