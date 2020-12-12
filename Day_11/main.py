@@ -24,14 +24,18 @@ def pretty_print(data: list):
         else:
             print(row)
 
-def part_1(data: List[List[str]], rounds=3) -> int:
-    seating = [['#' if c != '.' else '.' for c in row] for row in data]
-    for i in range(rounds + 1):
-        seating = seat_move(seating)
+def part_1(data: List[List[str]]) -> int:
+    seating = data
+    did_change = True
+    round = 0
+    while did_change:
+        seating, did_change = seat_move(seating)
+        round += 1
     return [c for row in seating for c in row].count('#')
     
 def seat_move(data: List[List[str]]) -> List[List[str]]:
     new_seat_map = copy.deepcopy(data)
+    did_not_change = True
     for i, row in enumerate(data):
         for j, c in enumerate(row):
             if c not in ['L', '#']:
@@ -47,7 +51,9 @@ def seat_move(data: List[List[str]]) -> List[List[str]]:
                 new_seat_map[i][j] = '#'
             else:
                 new_seat_map[i][j] = c
-    return new_seat_map
+            if data[i][j] != new_seat_map[i][j]:
+                did_not_change &= False
+    return new_seat_map, not did_not_change
     
     
 
