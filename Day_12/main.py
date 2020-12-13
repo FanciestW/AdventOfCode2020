@@ -45,8 +45,9 @@ def pt2_move(instr: List[tuple]) -> int:
     waypoint = [1, 10] # 1 unit North, 10 East. Negative values are south and west.
     ew_unit = 0
     ns_unit = 0
-
+    write_file = open('debug1.txt', 'w')
     for cmd, num in instr:
+        write_file.write(f'{cmd} {num}\t\t{str(waypoint)}\t\t{str([ns_unit, ew_unit])}\n')
         if cmd == 'F':
             ns_unit += (waypoint[0] * num)
             ew_unit += (waypoint[1] * num)
@@ -56,7 +57,7 @@ def pt2_move(instr: List[tuple]) -> int:
             waypoint[0] -= num
         elif cmd == 'E':
             waypoint[1] += num
-        elif cmd == 'E':
+        elif cmd == 'W':
             waypoint[1] -= num
         elif cmd in ['L', 'R']:
             rotate = num if cmd == 'R' else 360 - num
