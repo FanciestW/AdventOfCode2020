@@ -42,6 +42,16 @@ def init_memory(data: List[str]) -> int:
             memory[mem_loc] = mem_value
     return sum(memory.values())
 
+def get_bitmasks_v2(mask: str) -> (List[int], int):
+    pass
+
+def init_memory_v2(data: List[str]) -> int:
+    memory = dict()
+    mask = 0
+    for instr_str in data:
+        if 'mask' in instr_str:
+            mask = int(instr_str[-36:], 2)
+
 if __name__ == '__main__':
     data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
     print(init_memory(data))
