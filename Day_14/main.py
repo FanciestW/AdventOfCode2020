@@ -1,5 +1,6 @@
 import os
 from typing import List, Tuple
+import itertools
 
 def read_file(file_name: str) -> List[str]:
     try:
@@ -44,19 +45,37 @@ def init_memory(data: List[str]) -> int:
 
 def get_mask_data(mask: str) -> Tuple[List[int], int]:
     bit_mask = int(mask.replace('X', '0'), 2)
-    base_addr = bit_mask
-    list_of_addr = [len(mask) - 1 - i for i, b in enumerate(mask) if b == 'X']
-    # Find all memory addresses
-    return bit_mask, list_of_addr
+    addr_mask = int(mask.replace('1', '0').replace('0', '1').replace('X', '0'), 2)
+    float_bits = [2**(len(mask) - 1 - i) for i, b in enumerate(mask) if b == 'X']
+    addr_permutations = [0]
+    for seq in [itertools.permutations(float_bits, i + 1) for i in range(0, len(float_bits))]:
+        addr_permutations += [sum(list(i)) for i in seq]
+    addr_permutations = list(set(addr_permutations))
+    return bit_mask, addr_mask, addr_permutations
 
 def init_memory_v2(data: List[str]) -> int:
     memory = dict()
     mask = 0
+    addr_mask = 0
+    addr_permutations = list()
     for instr_str in data:
         if 'mask' in instr_str:
-            mask = int(instr_str[-36:], 2)
+            mask, addr_mask, addr_permutations = get_mask_data(instr_str[-36:])
+        elif 'mem' in instr_str:
+            num = int(instr_str[instr_str.index('=') + 2:].strip())
+            mem_loc = int(instr_str[4:instr_str.index(']')])
+            mem_loc |= mask
+            mem_loc &= addr_mask
+            mem_list = [mem_loc + p for p in addr_permutations]
+            for m in mem_list:
+                memory[m] = num
+    return sum(memory.values())
+
 
 if __name__ == '__main__':
     data = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
     print(init_memory(data))
     # > 9967721333886
+
+    print(init_memory_v2(data))
+    # > 4355897790573
