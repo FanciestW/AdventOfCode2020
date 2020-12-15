@@ -1,5 +1,5 @@
 import os
-from typing import List
+from typing import List, Tuple
 
 def read_file(file_name: str) -> List[str]:
     try:
@@ -15,7 +15,7 @@ def read_file(file_name: str) -> List[str]:
     except Exception as e:
         print(str(e))
 
-def get_bitmasks(mask: str) -> (int, int):
+def get_bitmasks(mask: str) -> Tuple[int, int]:
     zero_mask = 0
     one_mask = 0
     for bit in mask:
@@ -42,8 +42,12 @@ def init_memory(data: List[str]) -> int:
             memory[mem_loc] = mem_value
     return sum(memory.values())
 
-def get_bitmasks_v2(mask: str) -> (List[int], int):
-    pass
+def get_mask_data(mask: str) -> Tuple[List[int], int]:
+    bit_mask = int(mask.replace('X', '0'), 2)
+    base_addr = bit_mask
+    list_of_addr = [len(mask) - 1 - i for i, b in enumerate(mask) if b == 'X']
+    # Find all memory addresses
+    return bit_mask, list_of_addr
 
 def init_memory_v2(data: List[str]) -> int:
     memory = dict()
