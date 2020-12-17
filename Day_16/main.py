@@ -39,8 +39,8 @@ def find_invalid_sum(known: dict(), other_tickets: List[List[int]]) -> tuple:
             invalid_nums.append(n)
     return sum(invalid_nums), [tix for tix in others if not any(t in invalid_nums for t in tix)]
 
-def check_conditions(n, cond1, cond2) -> bool:
-    return (n >= first_cond[0] and n <= first_cond[1]) or (n >= second_cont[0] and n <= second_cont[1])
+def check_conditions(n: int, cond1: tuple, cond2: tuple) -> bool:
+    return (n >= cond1[0] and n <= cond1[1]) or (n >= cond2[0] and n <= cond2[1])
 
 def find_labels(known: dict, mytix: List[int], others: List[List[int]]) -> int:
     complete_tix = dict()
@@ -48,12 +48,14 @@ def find_labels(known: dict, mytix: List[int], others: List[List[int]]) -> int:
     for i, col_data in enumerate(others_np.T):
         for key in known:
             cond1, cond2 = known[key]
-            if all(check_condition(n, cond1, cond2) for n in col_data):
+            if all(check_conditions(n, cond1, cond2) for n in col_data) and key not in complete_tix:
                 complete_tix[key] = mytix[i]
-    print(complete_tix)
+                break
+    test = [complete_tix[key] for key in complete_tix if 'departure' in key]
+    return sum(test)
 
 if __name__ == '__main__':
-    known, mytix, others = read_file(os.path.join(os.path.dirname(__file__), 'test_input2.txt'))
+    known, mytix, others = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
     the_total, valid_tix = find_invalid_sum(known, others)
     print(the_total)
     # > 20048
