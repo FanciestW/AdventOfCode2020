@@ -52,7 +52,7 @@ def find_labels(known: dict, mytix: List[int], others: List[List[int]]) -> int:
                 complete_tix[key] = mytix[i]
                 break
     test = [complete_tix[key] for key in complete_tix if 'departure' in key]
-    return sum(test)
+    return np.product(test)
 
 if __name__ == '__main__':
     known, mytix, others = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
@@ -61,3 +61,4 @@ if __name__ == '__main__':
     # > 20048
 
     print(find_labels(known, mytix, valid_tix))
+    # > 4810284647569
