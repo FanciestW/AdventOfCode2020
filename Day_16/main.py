@@ -1,5 +1,6 @@
 import os
 from typing import List
+import numpy as np
 
 def read_file(file_name: str) -> list():
     try:
@@ -37,6 +38,9 @@ def find_invalid_sum(known: dict(), other_tickets: List[List[int]]) -> int:
         if not valid:
             invalid_nums.append(n)
     return sum(invalid_nums)
+
+def find_labels(known: dict, mytix: List[int], others: List[List[int]]) -> int:
+    pass
 
 if __name__ == '__main__':
     known, mytix, others = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
