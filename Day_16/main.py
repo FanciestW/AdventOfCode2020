@@ -26,7 +26,7 @@ def read_file(file_name: str) -> list():
     except Exception as e:
         print(str(e))
     
-def find_invalid_sum(known: dict(), other_tickets: List[List[int]]) -> int:
+def find_invalid_sum(known: dict(), other_tickets: List[List[int]]) -> tuple:
     invalid_nums = list()
     nums = [n for tix_data in other_tickets for n in tix_data]
     for n in nums:
@@ -37,12 +37,15 @@ def find_invalid_sum(known: dict(), other_tickets: List[List[int]]) -> int:
                 break
         if not valid:
             invalid_nums.append(n)
-    return sum(invalid_nums)
+    return sum(invalid_nums), [tix for tix in others if not any(t in invalid_nums for t in tix)]
 
 def find_labels(known: dict, mytix: List[int], others: List[List[int]]) -> int:
-    pass
+    others_np = np.array(others)
 
 if __name__ == '__main__':
-    known, mytix, others = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
-    print(find_invalid_sum(known, others))
+    known, mytix, others = read_file(os.path.join(os.path.dirname(__file__), 'test_input2.txt'))
+    the_total, valid_tix = find_invalid_sum(known, others)
+    print(the_total)
     # > 20048
+
+    print(find_labels(known, mytix, valid_tix))
