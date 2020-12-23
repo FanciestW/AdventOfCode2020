@@ -58,9 +58,9 @@ if __name__ == '__main__':
     p1_cards, p2_cards = read_file(os.path.join(os.path.dirname(__file__), 'input.txt'))
 
     # Part 1:
-    print(play_game(p1_cards, p2_cards, recursive_mode=False)[0])
+    print(play_game(p1_cards.copy(), p2_cards.copy(), recursive_mode=False)[0])
     # > 32179
 
     # Part 2:
-    print(play_game(p1_cards, p2_cards, recursive_mode=True)[0])
+    print(play_game(p1_cards.copy(), p2_cards.copy(), recursive_mode=True)[0])
     # > 30498
